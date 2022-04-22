@@ -5,7 +5,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 class FourierBlock(nn.Module):
     def __init__(self, input_channels) :
         super(FourierBlock, self).__init__()
@@ -154,19 +153,18 @@ class GeneratorInpainting(nn.Module):
         model = [#nn.ReflectionPad2d(1),
                 FFC(input_nc, 16),# 3 layers of downsampling
                 FFC(16, 32),
-                FCCResNet(32, 32),#4 layers of residual blocks
+                # FFC(64, 128),
+                FCCResNet(32, 32),#9 layers of residual blocks
                 FCCResNet(32, 32),
                 FCCResNet(32, 32),
-                FCCResNet(32, 32),
-                FCCResNet(32, 32),
-                # FCCResNet(32, 32),
-                # FCCResNet(32, 32),
-                # FCCResNet(32, 32),
-                # FCCResNet(32, 32),
-                # FCCResNet(32, 32),
-                # FCCResNet(32, 32),
-                ConcatLocalAndGlobal(),
-                #nn.ConvTranspose2d(64, 32, kernel_size = 3),
+                #FCCResNet(128, 128),
+                # FCCResNet(128, 128),
+                # FCCResNet(128, 128),
+                # FCCResNet(128, 128),
+                # FCCResNet(128, 128),
+                # FCCResNet(128, 128),
+                ConcatLocalAndGlobal(),#3 layers of upscaling 
+                #nn.ConvTranspose2d(128, 64, kernel_size = 3),
                 nn.ConvTranspose2d(32, 16, kernel_size = 3),
                 nn.Conv2d(16, output_nc, kernel_size = 3),
                 nn.Sigmoid()]
