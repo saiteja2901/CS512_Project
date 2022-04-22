@@ -1,7 +1,7 @@
 kwargs:
   gpus: -1
   accelerator: ddp
-  max_epochs: 40
+  max_epochs: 5
   gradient_clip_val: 1
   # log_gpu_memory: None  
   limit_train_batches: 25000
@@ -16,15 +16,15 @@ kwargs:
   # resume_from_checkpoint: path  # override via command line trainer.resume_from_checkpoint=path_to_checkpoint
   terminate_on_nan: False
   # auto_scale_batch_size: True  # uncomment to find largest batch size
-  check_val_every_n_epoch: 1
+  check_val_every_n_epoch: 2
   num_sanity_val_steps: 8
 #  limit_val_batches: 1000000
   replace_sampler_ddp: False
 
 checkpoint_kwargs:
   verbose: True
-  save_top_k: 5
+  #save_top_k: 5
   save_last: True
   every_n_epochs: 1
-  monitor: val_ssim_fid100_f1_total_mean
+  # monitor: val_ssim_fid100_f1_total_mean
   mode: max
